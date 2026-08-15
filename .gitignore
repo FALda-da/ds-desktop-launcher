@@ -1,0 +1,7 @@
+# 运行时日志（不入库）
+dsh-server.log
+*.log
+
+# Windows 系统文件
+Thumbs.db
+Desktop.ini
