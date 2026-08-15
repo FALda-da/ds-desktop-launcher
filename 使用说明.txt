@@ -1,0 +1,29 @@
+﻿DSH 桌面一键启动 - 使用说明
+=====================================
+
+一、桌面图标
+  DSH        - 双击启动服务器（后台隐藏运行，无任何窗口），并自动打开浏览器 http://127.0.0.1:3080
+  DSH 停止   - 双击停止服务器
+
+二、文件夹内容
+  DSHLauncher.exe  - 主程序（启动 / --stop 停止）
+  DSHLauncher.cs   - 主程序源码
+  start-server.bat - 服务器启动脚本（输出写入 dsh-server.log）
+  start-dsh.ps1    - 备用启动脚本
+  stop-dsh.bat     - 备用停止脚本
+  setup-desktop.ps1- 重新生成桌面图标的脚本
+  update-icon.ps1  - 更换图标脚本（用法见下）
+  dsh.ico          - 图标文件
+  大肥鱼.png       - 图标原始图片
+  dsh-server.log   - 服务器日志（运行时自动生成）
+
+三、换图标
+  .\update-icon.ps1 -Source "图片路径.png"
+
+四、常见问题
+  - 关机/重启不需要先停止服务器，没有任何影响
+  - 服务器不会开机自启，想用就双击 DSH
+  - 如果桌面图标失效，右键"以管理员身份运行"不行的话，直接重新运行 setup-desktop.ps1
+
+五、卸载
+  删除本文件夹 + 删除桌面两个图标即可
