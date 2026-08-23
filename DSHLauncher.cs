@@ -29,6 +29,8 @@ class DSHLauncher
     [STAThread]
     static int Main(string[] args)
     {
+        // DPI awareness comes from the embedded app.manifest (PerMonitorV2),
+        // so the UI renders sharply on high-DPI (2K/4K) displays.
         bool stop = args.Length > 0 && (args[0] == "--stop" || args[0] == "-stop" || args[0] == "/stop");
         Application.EnableVisualStyles();
         Application.SetCompatibleTextRenderingDefault(false);
@@ -58,6 +60,11 @@ class ProgressForm : Form
     {
         this.stopMode = stopMode;
 
+        // Scale layout and fonts with the display DPI (96 = 100% baseline).
+        Font = new Font("Microsoft YaHei UI", 9F);
+        AutoScaleDimensions = new SizeF(96F, 96F);
+        AutoScaleMode = AutoScaleMode.Dpi;
+
         Text = "DSH";
         FormBorderStyle = FormBorderStyle.FixedDialog;
         ControlBox = false;
@@ -70,7 +77,7 @@ class ProgressForm : Form
         titleLabel.AutoSize = false;
         titleLabel.Location = new Point(18, 14);
         titleLabel.Size = new Size(364, 28);
-        titleLabel.Font = new Font("Microsoft YaHei UI", 11F, FontStyle.Bold);
+        titleLabel.Font = new Font("Microsoft YaHei UI", 12F, FontStyle.Bold);
         titleLabel.Text = stopMode ? "DSH 正在停止服务器..." : "DSH 正在启动...";
         Controls.Add(titleLabel);
 

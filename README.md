@@ -11,6 +11,7 @@
 
 > 服务器已运行时再点 DSH 不会重复启动，只会打开浏览器。
 > 启动 / 停止时会弹出简洁的进度窗口，依次显示：检查服务器状态 → 启动服务器 → 打开网页 → 完成 ✔，随后自动关闭（不占任务栏）。
+> 界面已启用 PerMonitorV2 高 DPI 支持，在 2K / 4K 高分屏（125% / 150% 缩放）上文字清晰锐利。
 
 ## 文件说明
 
@@ -34,7 +35,7 @@
 主程序（用 Windows 自带 .NET Framework 编译器，无需安装 SDK）：
 
 ```powershell
-& 'C:\Windows\Microsoft.NET\Framework64\v4.0.30319\csc.exe' -nologo -target:winexe -optimize+ -codepage:65001 -win32icon:dsh.ico -out:DSHLauncher.exe -r:System.Management.dll -r:System.Windows.Forms.dll -r:System.Drawing.dll DSHLauncher.cs
+& 'C:\Windows\Microsoft.NET\Framework64\v4.0.30319\csc.exe' -nologo -target:winexe -optimize+ -codepage:65001 -win32manifest:app.manifest -win32icon:dsh.ico -out:DSHLauncher.exe -r:System.Management.dll -r:System.Windows.Forms.dll -r:System.Drawing.dll DSHLauncher.cs
 ```
 
 桌面客户端：
