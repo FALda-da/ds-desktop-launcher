@@ -106,7 +106,7 @@ try {
             $null = [System.IO.File]::ReadAllText($PackagePath, $utf8NoBom) | ConvertFrom-Json
             $valid = 'JSON OK'
         } catch { $valid = 'JSON INVALID' }
-        Write-Repair ('repaired package.json: {0} [{1}] backup -> {2}' -f ($notes -join '; '), $valid, (Split-Path -Leaf $backup))
+        Write-Repair ('repaired {0}: {1} [{2}] backup -> {3}' -f $PackagePath, ($notes -join '; '), $valid, (Split-Path -Leaf $backup))
     }
 } catch {
     Write-Repair ('WARN preflight error: ' + $_.Exception.Message)
