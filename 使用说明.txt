@@ -2,28 +2,49 @@
 =====================================
 
 一、桌面图标
-  DSH        - 双击启动服务器（后台隐藏运行，无任何窗口），并自动打开浏览器 http://127.0.0.1:3080
+  DSH        - 双击启动服务器（后台隐藏运行，无任何窗口），并自动打开带鉴权 token 的可用网址
   DSH 停止   - 双击停止服务器
 
 二、文件夹内容
-  DSHLauncher.exe  - 主程序（启动 / --stop 停止）
+  DSHLauncher.exe  - 主程序（启动 / --stop 停止 / --diag 诊断）
   DSHLauncher.cs   - 主程序源码
-  start-server.bat - 服务器启动脚本（输出写入 dsh-server.log）
+  dsh-engine.txt   - 引擎版本锁（改这里即改版本，建议用 update-engine.ps1）
+  start-server.bat - 启动脚本（先自愈配置，再启动引擎，输出写入 dsh-server.log）
+  dsh-preflight.ps1- 启动前自愈脚本（补齐 name/version、日志超 1MB 自动轮转）
+  update-engine.ps1- 升级 / 回滚引擎版本
+  app.manifest     - 高 DPI 清单（编译时嵌入）
   start-dsh.ps1    - 备用启动脚本
   stop-dsh.bat     - 备用停止脚本
   setup-desktop.ps1- 重新生成桌面图标的脚本
   update-icon.ps1  - 更换图标脚本（用法见下）
   dsh.ico          - 图标文件
   大肥鱼.png       - 图标原始图片
-  dsh-server.log   - 服务器日志（运行时自动生成）
+  dsh-server.log   - 服务器日志（自动生成）
+  dsh-repair.log   - 自愈记录（自动生成，改动过配置才会有内容）
+  dsh-diag.txt     - 诊断报告（运行 DSHLauncher.exe --diag 生成）
 
-三、换图标
+三、启动失败怎么办
+  1. 进度窗口会直接把日志尾部显示出来，先看那里的报错
+  2. 点「打开日志」查看完整 dsh-server.log
+  3. 命令行诊断：  .\DSHLauncher.exe --diag     然后看 dsh-diag.txt
+  4. 401 = 需要 token（正常，启动器会自动加）；200/302/303 = 可用
+
+四、换图标
   .\update-icon.ps1 -Source "图片路径.png"
 
-四、常见问题
+五、引擎版本管理（防止被静默升级搞坏）
+  .\update-engine.ps1                     查看当前锁定版本 + npm 最新版
+  .\update-engine.ps1 -Version 0.1.5-rc.1 锁定指定版本（也可用旧版本回滚）
+  .\update-engine.ps1 -Latest             跟随最新（不推荐）
+  改完版本后：点「DSH 停止」，再点「DSH」重启即可
+
+六、常见问题
   - 关机/重启不需要先停止服务器，没有任何影响
   - 服务器不会开机自启，想用就双击 DSH
-  - 如果桌面图标失效，右键"以管理员身份运行"不行的话，直接重新运行 setup-desktop.ps1
+  - 桌面图标失效时，重新运行 setup-desktop.ps1
+  - 皮肤/市场工具重写配置后如果出现
+    "DeepSeek request extension preparation failed"，
+    双击一次 DSH 即可（启动前自愈会自动补齐缺失的 version 字段）
 
-五、卸载
+七、卸载
   删除本文件夹 + 删除桌面两个图标即可

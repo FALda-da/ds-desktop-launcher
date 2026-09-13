@@ -1,6 +1,14 @@
 # 运行时日志（不入库）
 dsh-server.log
+dsh-server.log.old
 *.log
+
+# 自愈/诊断产物
+dsh-repair.log
+dsh-diag.txt
+
+# 配置备份
+*.bak-*
 
 # Windows 系统文件
 Thumbs.db

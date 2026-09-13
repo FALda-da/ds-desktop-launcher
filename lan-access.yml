@@ -1,0 +1,17 @@
+# 手机 / 局域网访问模式（--patch 覆盖层）
+#
+# 用法：npx @deepseek-ai/dsh web --patch lan-access.yml
+#   或：双击「手机模式-启动.bat」
+#
+# 作用：把 DSH Web 服务器的监听地址从 127.0.0.1（仅本机）改为 0.0.0.0（所有网卡），
+#       同一 Wi-Fi 下的手机（或 Tailscale 网络）即可直接访问。
+#       DSH 会自动把本机所有局域网 IPv4 地址加入 /api 信任围栏（见
+#       dsh-web-app 的 resolveLanTrust），并在启动时打印
+#       "dsh web: http://127.0.0.1:3080 (LAN: http://192.168.x.x:3080)"。
+#
+# 注意：这是「有意向网络暴露」的配置，等同于把 DSH（含远程执行能力）开放给整个局域网。
+#       请配合「手机模式-防火墙开启.bat」限制放行范围，用完及时停止或删除规则。
+- id: webserver
+  config:
+    host: 0.0.0.0
+    port: !!js ctx.webStartup.port ?? 3080
